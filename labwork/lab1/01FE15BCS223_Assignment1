@@ -1,0 +1,84 @@
+
+1.(a+b)^2=a^2+2ab+b^2
+
+import tensorflow as tf
+
+a = tf.multiply(2, 2)
+b = tf.multiply(3, 3)
+c = tf.multiply(2, 2)
+d = tf.multiply(c, 3)
+e = tf.add(a, b)
+f = tf.add(e, d)
+
+with tf.Session() as sess:
+    writer = tf.summary.FileWriter("/home/kiran/Desktop/o1", sess.graph)
+    print(sess.run(f))   
+    writer.close()
+
+
+
+2.(a-b)^3 = a^3 - b^3 -3ab(a-b)
+
+import tensorflow as tf
+a  = tf.multiply(6, 6)
+a1 = tf.multiply(a, 6)
+
+b  = tf.multiply(3, 3)
+b1 = tf.multiply(b, 3)
+
+c  = tf.multiply(3, 6)
+c1 = tf.multiply(c, 3)
+
+d  = tf.subtract(6, 3)
+
+e  = tf.multiply(c1, d)
+
+f  = tf.subtract(a1, b1)
+
+g  = tf.subtract(f, e)
+
+with tf.Session() as sess:
+    writer = tf.summary.FileWriter("/home/kiran/Desktop/o2", sess.graph)
+    print(sess.run(g))
+    writer.close()
+
+
+
+
+3.y=mx+c
+import tensorflow as tf
+
+a = tf.constant([1.0, 2.0, 6.0], name='a')
+b = tf.constant([3.0, 2.0, 5.0], name='b')
+
+mean_a, variance_a = tf.nn.moments(a, [0])
+mean_b, variance_b = tf.nn.moments(b, [0])
+
+a1=tf.subtract(a[0],mean_a)
+a2=tf.subtract(a[1],mean_a)
+a3=tf.subtract(a[2],mean_a)
+
+b1=tf.subtract(b[0],mean_b)
+b2=tf.subtract(b[1],mean_b)
+b3=tf.subtract(b[2],mean_b)
+
+c1=tf.multiply(a1,b1)
+c2=tf.multiply(a2,b2)
+c3=tf.multiply(a3,b3)
+
+c4=tf.add(c1,c2)
+c5=tf.add(c4,c3)
+
+cov = tf.divide(c5,variance_a)
+
+m1=tf.multiply(cov,mean_b)
+m=tf.subtract(mean_a,m1)
+
+with tf.Session() as sess:
+    writer = tf.summary.FileWriter("/home/kiran/Desktop/o3", sess.graph)
+    print(sess.run([mean_a, variance_a]))
+    (sess.run([mean_b, variance_b]))
+    print(sess.run(c5))
+    print(sess.run(cov))
+    print(sess.run(m))
+    writer.close()
